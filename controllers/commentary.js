@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const commentaryControllers = require("../controllers/commentary-controllers");
+// const commentaryControllers = require("../controllers/commentary-controllers");
 
-router.post("/commentary", (req, res) => {
+router.post("/", (req, res) => {
   const body = req.body;
   console.log(body);
-  CommentaryModel.find();
 });
 
-router.get("/commentary", (req, res) => {
+router.get("/", (req, res) => {
   res.json({
     message: "",
   });
 });
+module.exports = router;
