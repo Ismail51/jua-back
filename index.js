@@ -10,11 +10,6 @@ app.listen(PORT, () => {
   console.log("the server is listening on port : ", PORT);
 });
 
-app.post("/commentary", (req, res) => {
-  const body = req.body;
-  console.log(body);
-});
-app.get("/commentary", (req, res) => {});
 app.post("/offers", (req, res) => {
   const body = req.body;
   console.log(body);
