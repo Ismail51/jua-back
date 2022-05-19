@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 var helpersModel = require("../Models/HelpersModel");
+const { route } = require("./commentary");
 
 
 router.post("/",async function(req, res, next){
@@ -15,7 +16,6 @@ router.post("/",async function(req, res, next){
           res.status(500).send("internal server error")
           
      }
-     
 
 })
 
@@ -27,6 +27,8 @@ router.get("/:id",function(req, res, next){
      console.log("console log d'helpersModel",helpersModel)
                                                              
 })
+
+
 
 
 module.exports = router
