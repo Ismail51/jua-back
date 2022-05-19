@@ -5,7 +5,6 @@ const helpersSchema = new mongoose.Schema({
     lastname : String,
     age : Number,
     phone : String,
-    phone : String,
     mail : String,
     ratings : [Number],
     profile_picture : String,
