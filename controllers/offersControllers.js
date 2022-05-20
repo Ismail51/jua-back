@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const offersModel = require("../Models/OffersModel");
 const OffersModel = require("../Models/OffersModel");
+const HelperModel = require("../Models/HelpersModel");
+const helpersModel = require("../Models/HelpersModel");
 
 router.get("/", async (req, res, next) => {
   OffersModel.find({})
@@ -54,5 +57,24 @@ router.delete("/:id", (req, res, next) => {
     })
     .catch((err) => res.status(500).send("Internal server error"));
 });
+
+
+router.post("/:id",(req, res, next)=>{
+  const offerId = req.params.id;
+  const filter = {"_id":offerId};
+  const update = { accepted_by:req.body.accepteur };
+  console.log(req.body)
+  OffersModel.findOneAndUpdate(filter, update).exec().then(data=>{
+    HelperModel.findOne({"_id":data.accepted_by}).then(ok=>{
+      const actualPoints = ok.points
+      const filter = {"_id":data.accepted_by};
+      const update = { points: actualPoints + data.points };
+      HelperModel.findOneAndUpdate(filter, update).exec().then(user=>{
+        res.json(user)
+      })
+    })
+  })
+})
+
 
 module.exports = router;
