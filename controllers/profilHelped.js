@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-mongoose.connect('mongodb://localhost:27017/JUA')
 const helpedModel = require("../Models/HelpedModel")
 
 
@@ -22,7 +21,8 @@ router.post("/",async function(req, res, next){
 
 router.get("/:id",function(req, res, next){
     const id = req.params.id 
-    helpedModel.findById(id).exec().then(data=>{
+    helpedModel.findOne({"_id":id}).exec().then(data=>{
+         console.log(data)
          res.json(data)
     })
     console.log("console log d'helpersModel",helpedModel)

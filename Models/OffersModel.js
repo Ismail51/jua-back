@@ -1,19 +1,23 @@
 const mongoose = require('mongoose')
 
 const offersSchema = new mongoose.Schema({
-    created_by : [{
+    created_by : {
         type : mongoose.Types.ObjectId,
         ref : "helped"
-    }],
-    accepted_by :[{
+    },
+    accepted_by :{
         type : mongoose.Types.ObjectId,
         ref : "helpers"
-    }],
-    date : Date,
+    },
+    date: {
+        type: Date,
+        default: Date.now
+      },
     duration : Number,
     points : Number,
     type : String,
     is_active : Boolean,
+    description:String
 })
 
 const offersModel = new mongoose.model("offers",offersSchema)
