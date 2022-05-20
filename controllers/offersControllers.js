@@ -50,7 +50,7 @@ router.post("/", async (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
-  OffersModel.findByandDelete(id)
+  OffersModel.findByIdAndDelete(id)
     .exec()
     .then((offerDeleted) => {
       res.json(offerDeleted);
