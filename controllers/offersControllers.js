@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose"); 
+const mongoose = require("mongoose");
+const offersModel = require("../Models/OffersModel");
 const OffersModel = require("../Models/OffersModel");
 const HelperModel = require("../Models/HelpersModel");
-
+const helpersModel = require("../Models/HelpersModel");
 
 router.get("/", async (req, res, next) => {
   OffersModel.find({}).populate("created_by")

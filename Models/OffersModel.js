@@ -15,7 +15,7 @@ const offersSchema = new mongoose.Schema({
       },
     duration : Number,
     points : Number,
-    type : String,
+    offerType : String,
     is_active : Boolean,
     description:String
 })

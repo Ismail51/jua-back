@@ -18,6 +18,7 @@ app.use("/profil/helpers", profilHelpersRouter);
 app.use("/profil/helpeds", profilHelpedsRouter);
 app.use("/blockUser", blockedRouter);
 app.use("/offers", offerRouter);
+app.use("/profil/helped",profilHelpedRouter)
 
 app.listen(PORT, () => {
   console.log("the server is listening on port : ", PORT);
