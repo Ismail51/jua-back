@@ -79,7 +79,6 @@ router.get("/type/:type", async (req, res, next) => {
   OffersModel.find({offerType:req.params.type}).populate("created_by")
     .exec()
     .then((offers) => {
-      console.log("offers", offers);
       res.json(offers);
     })
     .catch((err) => {

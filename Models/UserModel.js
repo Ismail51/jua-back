@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
     history : [String],
     ratings : [Number],
     points : Number,
+    password:String,
 })
 
 const UserModel = new mongoose.model("user",userSchema)
