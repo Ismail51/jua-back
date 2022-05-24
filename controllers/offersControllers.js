@@ -75,5 +75,16 @@ router.put("/:id",(req, res, next)=>{
   })
 })
 
-
+router.get("/type/:type", async (req, res, next) => {
+  OffersModel.find({offerType:req.params.type}).populate("created_by")
+    .exec()
+    .then((offers) => {
+      console.log("offers", offers);
+      res.json(offers);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Internal server error");
+    });
+});
 module.exports = router;
