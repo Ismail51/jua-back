@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const offersModel = require("../Models/OffersModel");
 const OffersModel = require("../Models/OffersModel");
-const HelperModel = require("../Models/HelpersModel");
-const helpersModel = require("../Models/HelpersModel");
+const UserModel = require("../Models/UserModel");
 
 router.get("/", async (req, res, next) => {
   OffersModel.find({}).populate("created_by")
@@ -26,6 +24,7 @@ router.get("/:id", (req, res, next) => {
     return res.status(400).send("The id needs to be an ObjectId");
   }
   OffersModel.findById(id)
+  .populate('created_by')
     .exec()
     .then((offers) => {
       console.log(offers);
@@ -59,17 +58,17 @@ router.delete("/:id", (req, res, next) => {
 });
 
 
-router.post("/:id",(req, res, next)=>{
+router.put("/:id",(req, res, next)=>{
   const offerId = req.params.id;
   const filter = {"_id":offerId};
   const update = { accepted_by:req.body.accepteur };
   console.log(req.body)
   OffersModel.findOneAndUpdate(filter, update,{new : true}).exec().then(data=>{
-    HelperModel.findOne({"_id":data.accepted_by}).then(ok=>{
+    UserModel.findOne({"_id":data.accepted_by}).then(ok=>{
       const actualPoints = ok.points
       const filter = {"_id":data.accepted_by};
       const update = { points: actualPoints + data.points };
-      HelperModel.findOneAndUpdate(filter, update).exec().then(user=>{
+      UserModel.findOneAndUpdate(filter, update).exec().then(user=>{
         res.json(data)
       })
     })

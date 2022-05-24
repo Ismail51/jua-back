@@ -1,31 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const helpedModel = require("../Models/HelpedModel")
+const UserModel = require("../Models/UserModel")
 
 
 router.post("/",async function(req, res, next){
     const body = req.body
     console.log("body",body)
-    const newHelped = new helpedModel(body)
+    const newHelped = new UserModel(body)
     try {
-         const helped = await newHelped.save()
+         const helped = await UserModel.save()
          res.json(helped)
     } catch (error) {
          console.error(err)
-         res.status(500).send("internal server error")
-         
-    }
-    
-
+         res.status(500).send("internal server error")  
+    }  
 })
 
 router.get("/:id",function(req, res, next){
     const id = req.params.id 
-    helpedModel.findOne({"_id":id}).exec().then(data=>{
+    UserModel.findOne({"_id":id}).exec().then(data=>{
          console.log(data)
          res.json(data)
     })
-    console.log("console log d'helpersModel",helpedModel)
+    console.log("console log d'helpersModel",UserModel)
                                                             
 })
 

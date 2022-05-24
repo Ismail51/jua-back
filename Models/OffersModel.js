@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const offersSchema = new mongoose.Schema({
     created_by : {
         type : mongoose.Types.ObjectId,
-        ref : "helped"
+        ref : "user"
     },
     accepted_by :{
         type : mongoose.Types.ObjectId,
-        ref : "helpers"
+        ref : "user"
     },
     date: {
         type: Date,

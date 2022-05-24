@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const HelpedSchema = new mongoose.Schema({
-    firstnamne : String,
+const userSchema = new mongoose.Schema({
+    firstname : String,
     lastname : String,
     age : Number,
     phone : String,
@@ -13,8 +13,12 @@ const HelpedSchema = new mongoose.Schema({
     city : String,
     zipcode : Number,
     adress : String,
+    skills : [String],
+    history : [String],
+    ratings : [Number],
+    points : Number,
 })
 
-const helpedModel = new mongoose.model("helped",HelpedSchema)
+const UserModel = new mongoose.model("user",userSchema)
 
-module.exports = helpedModel
+module.exports = UserModel
