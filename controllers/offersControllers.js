@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const OffersModel = require("../Models/OffersModel");
 const UserModel = require("../Models/UserModel");
+const ObjectId = require('mongoose').Types.ObjectId; 
 
 router.get("/", async (req, res, next) => {
   OffersModel.find({}).populate("created_by")
@@ -32,7 +33,19 @@ router.get("/:id", (req, res, next) => {
     })
     .catch((err) => res.status(500).send("error"));
 });
+router.get("/user/:id", (req, res, next) => {
+  const id = req.params.id;
+  console.log("id", id);
 
+  OffersModel.find({"created_by":id})
+  .populate('created_by')
+    .exec()
+    .then((offers) => {
+      console.log(offers);
+      res.json(offers);
+    })
+    .catch((err) => res.status(500).send("error"));
+});
 router.post("/", async (req, res, next) => {
   const body = req.body;
   console.log("body", body);
@@ -61,16 +74,17 @@ router.delete("/:id", (req, res, next) => {
 router.put("/:id",(req, res, next)=>{
   const offerId = req.params.id;
   const filter = {"_id":offerId};
-  const update = { accepted_by:req.body.accepteur };
-  console.log(req.body)
+  const update = { accepted_by:req.body.accepted_by };
   OffersModel.findOneAndUpdate(filter, update,{new : true}).exec().then(data=>{
-    UserModel.findOne({"_id":data.accepted_by}).then(ok=>{
-      const actualPoints = ok.points
-      const filter = {"_id":data.accepted_by};
-      const update = { points: actualPoints + data.points };
-      UserModel.findOneAndUpdate(filter, update).exec().then(user=>{
-        res.json(data)
-      })
+    console.log(data.accepted_by)
+    UserModel.findOne({_id:"628cf0aa9a03ace1ddffce0d"}).then(ok=>{
+      console.log("ok", ok)
+      // const actualPoints = ok.points
+      // const filter = {"_id":data.accepted_by};
+      // const update = { points: actualPoints + data.points };
+      // UserModel.findOneAndUpdate(filter, update).exec().then(user=>{
+      //   res.json(data)
+      // })
     })
   })
 })

@@ -5,7 +5,7 @@ const passport = require('../config/passport')
 
 const  checkIfExist = async (req, res, next)=>{
     console.log(req.body)
-    const result = await UserModel.find({email:req.body.email})
+    const result = await UserModel.find({mail:req.body.email})
     if(result.length){
        res.status(409).json('ca existe deja') 
     }else{
