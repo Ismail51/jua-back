@@ -13,10 +13,16 @@ const offersSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
       },
+    is_active: {
+        type: Boolean,
+        default: true
+      },
     duration : Number,
-    points : Number,
+    points : {
+        type:Number,
+        default:10
+    },
     offerType : String,
-    is_active : Boolean,
     description:String
 })
 

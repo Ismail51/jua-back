@@ -6,7 +6,7 @@ const UserModel = require("../Models/UserModel");
 const ObjectId = require('mongoose').Types.ObjectId; 
 
 router.get("/", async (req, res, next) => {
-  OffersModel.find({}).populate("created_by")
+  OffersModel.find({is_active:true}).populate("created_by")
     .exec()
     .then((offers) => {
       console.log("offers", offers);
@@ -74,23 +74,24 @@ router.delete("/:id", (req, res, next) => {
 router.put("/:id",(req, res, next)=>{
   const offerId = req.params.id;
   const filter = {"_id":offerId};
-  const update = { accepted_by:req.body.accepted_by };
+  const update = { accepted_by:req.body.accepted_by, 
+                      is_active:false};
   OffersModel.findOneAndUpdate(filter, update,{new : true}).exec().then(data=>{
     console.log(data.accepted_by)
-    UserModel.findOne({_id:"628cf0aa9a03ace1ddffce0d"}).then(ok=>{
+    UserModel.findOne({_id:data.accepted_by}).then(ok=>{
       console.log("ok", ok)
-      // const actualPoints = ok.points
-      // const filter = {"_id":data.accepted_by};
-      // const update = { points: actualPoints + data.points };
-      // UserModel.findOneAndUpdate(filter, update).exec().then(user=>{
-      //   res.json(data)
-      // })
+      const actualPoints = ok.points
+      const filter = {"_id":data.accepted_by};
+      const update = { points: actualPoints + data.points };
+      UserModel.findOneAndUpdate(filter, update).exec().then(user=>{
+        res.json(data)
+      })
     })
   })
 })
 
 router.get("/type/:type", async (req, res, next) => {
-  OffersModel.find({offerType:req.params.type}).populate("created_by")
+  OffersModel.find({offerType:req.params.type, is_active:true}).populate("created_by")
     .exec()
     .then((offers) => {
       res.json(offers);
