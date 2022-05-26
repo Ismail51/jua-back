@@ -17,7 +17,6 @@ router.get("/", async (req, res, next) => {
       res.status(500).send("Internal server error");
     });
 });
-
 router.get("/:id", (req, res, next) => {
   const id = req.params.id;
   console.log("id", id);
@@ -59,7 +58,6 @@ router.post("/", async (req, res, next) => {
     res.status(500).send("error");
   }
 });
-
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
   OffersModel.findByIdAndDelete(id)
@@ -69,8 +67,6 @@ router.delete("/:id", (req, res, next) => {
     })
     .catch((err) => res.status(500).send("Internal server error"));
 });
-
-
 router.put("/:id",(req, res, next)=>{
   const offerId = req.params.id;
   const filter = {"_id":offerId};
@@ -89,7 +85,6 @@ router.put("/:id",(req, res, next)=>{
     })
   })
 })
-
 router.get("/type/:type", async (req, res, next) => {
   OffersModel.find({offerType:req.params.type, is_active:true}).populate("created_by")
     .exec()
