@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/history/:id", async (req, res, next) => {
-  OffersModel.find({is_active:false}).populate("created_by")
+  OffersModel.find({is_active:false, accepted_by:req.params.id}).populate("created_by")
     .exec()
     .then((offers) => {
       console.log("offers", offers);
