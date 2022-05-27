@@ -9,7 +9,7 @@ const offersSchema = new mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref : "user"
     },
-    date: {
+    created_at: {
         type: Date,
         default: Date.now
       },
