@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/JUA");
+mongoose.connect("mongodb+srv://admin:jua77@cluster0.ze7pg9p.mongodb.net/?retryWrites=true&w=majority");
 const PORT = 3002;
 const commentaryRouter = require("./controllers/commentary");
 const profilHelpersRouter = require("./controllers/profilHelpers");
