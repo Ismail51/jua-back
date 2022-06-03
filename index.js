@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://admin:jua77@cluster0.ze7pg9p.mongodb.net/?retryWrites=true&w=majority");
-const PORT = 3002;
+require('dotenv').config()
+const id = `mongodb+srv://admin:${process.env.PASS}@cluster0.ze7pg9p.mongodb.net/?retryWrites=true&w=majority`
+mongoose.connect(id);
+console.log(id)
+const PORT = process.env.PORT || 80;
 const commentaryRouter = require("./controllers/commentary");
 const profilHelpersRouter = require("./controllers/profilHelpers");
 const blockedRouter = require("./controllers/blockedUsers");
@@ -28,6 +31,6 @@ app.use("/blockUser", blockedRouter);
 app.use("/offers", offerRouter);
 app.use("/register", registerRouter);
 
-app.listen(PORT, () => {
+app.listen(PORT || 8080, () => {
   console.log("the server is listening on port : ", PORT);
 });
